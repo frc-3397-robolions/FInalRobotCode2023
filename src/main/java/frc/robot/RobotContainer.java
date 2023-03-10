@@ -5,23 +5,18 @@
 package frc.robot;
 
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.Autonomous;
-import frc.robot.commands.MoveSegment;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.TeleIntake;
 import frc.robot.commands.ZeroWheels;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SwerveModule;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,8 +37,6 @@ public class RobotContainer {
 
   private DriveTrain swerveDrive; 
 
-  private Arm arm;
-
   private Intake intake;
   
   private XboxController xbC;
@@ -63,9 +56,7 @@ public class RobotContainer {
     frontLeft = new SwerveModule(c.FRONT_LEFT_ANGLE_ID, c.FRONT_LEFT_SPEED_ID, "fl");
 
     swerveDrive = new DriveTrain (backRight, backLeft, frontRight, frontLeft); 
-    //swerveDrive.setDefaultCommand(new SwerveDrive(swerveDrive, xbC));
-
-    arm=new Arm(pad);
+    swerveDrive.setDefaultCommand(new SwerveDrive(swerveDrive, xbC));
 
     intake = new Intake();
     intake.setDefaultCommand(new TeleIntake(intake, xbC, pad));
@@ -85,11 +76,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     
-    new JoystickButton(pad, 2).onTrue(new MoveSegment(arm, true, -60));
-    new JoystickButton(pad, 1).onTrue(new MoveSegment(arm, true, 0).andThen(new MoveSegment(arm, false, 150)));
-  }
-  private void addPos(int button, double theta, double phi){
-    new JoystickButton(pad, button).onTrue(new MoveSegment(arm, false, Constants.C).andThen(new MoveSegment(arm, true, theta)).andThen(new MoveSegment(arm, false, phi)));
   }
 
   /**

@@ -29,16 +29,19 @@ public class TeleIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(xbC.getAButton())
+    if(pad.getRawButton(1))
       sub.setRollers(0.3);
-    else if(xbC.getXButton())
+    else if(pad.getRawButton(3))
       sub.setRollers(-0.3);
+    else if(pad.getRawButton(2)){
+      sub.setRollers(0.8);
+    }
     else
       sub.setRollers(0);
-    if(pad.getRawAxis(2)>0){
+    if(pad.getRawButton(6)){
       sub.intakeIn();
     }
-    if(pad.getRawButton(5)){
+    if(xbC.getRawButton(5)){
       sub.intakeOut();
     }
   }

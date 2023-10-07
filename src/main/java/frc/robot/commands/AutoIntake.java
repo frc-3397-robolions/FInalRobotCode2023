@@ -5,23 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 
-public class Autonomous extends CommandBase {
-  /** Creates a new Autonomous. */
-  DriveTrain dt;
-  double speed;
-  public Autonomous(DriveTrain dt, double speed) {
+public class AutoIntake extends CommandBase {
+  /** Creates a new AutoIntake. */
+  Intake sub;
+  public AutoIntake(Intake sub) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.dt=dt;
-    this.speed=speed;
-    addRequirements(dt);
+    this.sub=sub;
+    addRequirements(sub);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    dt.drive(0, speed, 0);
+    sub.setRollers(-0.3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,7 +29,8 @@ public class Autonomous extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    dt.drive(0,0,0);
+
+    sub.setRollers(0);
   }
 
   // Returns true when the command should end.

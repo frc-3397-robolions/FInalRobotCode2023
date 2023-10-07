@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.AutoIntake;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.TeleIntake;
@@ -85,6 +86,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new Autonomous(swerveDrive).withTimeout(3);
+    return new AutoIntake(intake)
+      .withTimeout(1);
+      //.andThen(new Autonomous(swerveDrive,0.3)
+      //.withTimeout(3.5))
+      //.andThen(new Autonomous(swerveDrive, 0));
   }
 }

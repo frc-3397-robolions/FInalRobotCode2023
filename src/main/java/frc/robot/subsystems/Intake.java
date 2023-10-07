@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
   private PowerDistribution pdp;
   public Intake() {
     rollers = new PWMVictorSPX(Constants.INTAKE_PWM_PORT);
-    move = new Solenoid(PneumaticsModuleType.CTREPCM,1);
+    move = new Solenoid(PneumaticsModuleType.CTREPCM,0);
     comp = new Compressor(PneumaticsModuleType.CTREPCM);
     pdp=new PowerDistribution();
     pdp.clearStickyFaults();

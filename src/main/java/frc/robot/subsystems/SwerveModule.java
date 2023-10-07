@@ -11,8 +11,11 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.revrobotics.CANSensor;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.MotorFeedbackSensor;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,6 +25,7 @@ public class SwerveModule extends SubsystemBase {
   private CANSparkMax angleMotor;
   private CANSparkMax speedMotor;
   private SparkMaxPIDController pidController;
+  private SparkMaxPIDController drivePID;
   public RelativeEncoder encoder;
   private String name;
   private double MAX_VOLTS = Constants.SWERVE_MAX_VOLTS;
@@ -33,6 +37,8 @@ public class SwerveModule extends SubsystemBase {
     angleMotor.restoreFactoryDefaults();
     this.speedMotor = new CANSparkMax(speedMotorPort, MotorType.kBrushless);
     speedMotor.restoreFactoryDefaults();
+    speedMotor.enableVoltageCompensation(12);
+    speedMotor.setSmartCurrentLimit(60);
     this.pidController = angleMotor.getPIDController();
     this.encoder = angleMotor.getEncoder();
     encoder.setPositionConversionFactor(360 / 21);
@@ -52,12 +58,16 @@ public class SwerveModule extends SubsystemBase {
     pidController.setIZone(kIz);
     pidController.setFF(kFF);
     pidController.setOutputRange(kMinOutput, kMaxOutput);
+
+    drivePID = speedMotor.getPIDController();
+    drivePID.setFeedbackDevice(speedMotor.getEncoder());
+    drivePID.setP(0.1);
   }
 
   public void drive(SwerveModuleState state) {
     var optimizedstate = SwerveModuleState.optimize(state, Rotation2d.fromDegrees(-encoder.getPosition()));
     double targetAngle = -optimizedstate.angle.getDegrees();
-    speedMotor.set(optimizedstate.speedMetersPerSecond / 2);
+    speedMotor.set(optimizedstate.speedMetersPerSecond/3);
     pidController.setReference(targetAngle, CANSparkMax.ControlType.kPosition);
   }
 

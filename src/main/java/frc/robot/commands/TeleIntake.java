@@ -30,7 +30,7 @@ public class TeleIntake extends CommandBase {
   @Override
   public void execute() {
     if(pad.getRawButton(1)){
-      sub.setRollers(0.27);
+      sub.setRollers(0.4);
     }
     else if(pad.getRawButton(3))
       sub.setRollers(-0.3);

@@ -55,7 +55,7 @@ public void drive(double y, double x, double rot){
   frontRight.drive(moduleStates[1]);
   backLeft.drive(moduleStates[2]);
   backRight.drive(moduleStates[3]);
-  //gyro.setAngleAdjustment(180);
+  gyro.setAngleAdjustment(180);
 }
 public void resetGyro(){
   gyro.zeroYaw();

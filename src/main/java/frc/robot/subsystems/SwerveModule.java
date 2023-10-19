@@ -36,15 +36,19 @@ public class SwerveModule extends SubsystemBase {
   public SwerveModule(int angleMotorPort, int speedMotorPort, String name) {
     this.angleMotor = new CANSparkMax(angleMotorPort, MotorType.kBrushless);
     angleMotor.restoreFactoryDefaults();
+
     this.speedMotor = new CANSparkMax(speedMotorPort, MotorType.kBrushless);
     speedMotor.restoreFactoryDefaults();
+
     speedMotor.enableVoltageCompensation(12);
     speedMotor.setSmartCurrentLimit(60);
+
     this.pidController = angleMotor.getPIDController();
     this.encoder = angleMotor.getEncoder();
     encoder.setPositionConversionFactor(360 / 21);
     this.name = name;
     pidController.setFeedbackDevice(encoder);
+    
     kP = 0.005;
     kI = 0;
     kD = 0;

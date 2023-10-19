@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import static frc.robot.CustomUtils.applyDeadband;
 /** An example command that uses an example subsystem. */
 public class SwerveDrive extends CommandBase {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
@@ -35,7 +35,11 @@ public class SwerveDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.drive(CustomUtils.applyDeadband(controller.getLeftX(),0.1),CustomUtils.applyDeadband(controller.getLeftY(),0.1), CustomUtils.applyDeadband(controller.getRightX(),0.1));
+    m_subsystem.drive(
+      applyDeadband(controller.getLeftX()),
+      applyDeadband(controller.getLeftY()),
+      applyDeadband(controller.getRightX()));
+      
     SmartDashboard.putNumber("Left X", controller.getLeftX());
     SmartDashboard.putNumber("Left Y", controller.getLeftY());
   }

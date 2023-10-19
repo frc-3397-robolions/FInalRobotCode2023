@@ -27,13 +27,13 @@ public final class Constants {
     public static final int FRONT_RIGHT_SPEED_ID = 3;
 
     public final static int XB_CONTROLLER_PORT = 0;
-    public static final int PAD_PORT = 1;
+    public static final int BOX_PORT = 1;
     public static final int ARM_MOTOR_1_ID = 3;
     public static final int ARM_MOTOR_2_ID = 4;
     public static final int INTAKE_PWM_PORT = 1;
 
     public static final double C = 10;
-
+    public static final double controllerDeadband = 0.1;
 
 
 }

@@ -27,30 +27,30 @@ public class TeleIntake extends CommandBase {
   public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if(pad.getRawButton(1)){
-      sub.setRollers(0.4);
-    }
-    else if(pad.getRawButton(3))
-      sub.setRollers(-0.3);
-    else if(pad.getRawButton(2)){
-      sub.setRollers(0.9);
-    }
-    else
-      sub.setRollers(0);
-    if(pad.getRawButton(6)){
-      sub.intakeIn();
-    }
-    if(pad.getRawButton(5)){
-      sub.intakeOut();
-    }
-  }
+  // @Override
+  // public void execute() {
+  //   if(pad.getRawButton(1)){
+  //     sub.setRollers(0.4);
+  //   }
+  //   else if(pad.getRawButton(3))
+  //     sub.setRollers(-0.3);
+  //   else if(pad.getRawButton(2)){
+  //     sub.setRollers(0.9);
+  //   }
+  //   else
+  //     sub.setRollers(0);
+  //   if(pad.getRawButton(6)){
+  //     sub.intakeIn();
+  //   }
+  //   if(pad.getRawButton(5)){
+  //     sub.intakeOut();
+  //   }
+  // }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    sub.setRollers(0);
+    //sub.setRollers(0);
   }
 
   // Returns true when the command should end.

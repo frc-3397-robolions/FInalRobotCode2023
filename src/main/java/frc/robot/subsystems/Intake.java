@@ -43,7 +43,7 @@ public class Intake extends SubsystemBase {
     else
       rollers.set(0);
 
-    if(box.getRawButton(0))
+    if(box.getRawButton(6))
       move.set(false);
     if(box.getRawButton(5))
       move.set(true);

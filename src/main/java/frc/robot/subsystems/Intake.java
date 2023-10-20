@@ -33,7 +33,7 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putString("PDP Faults", pdp.getFaults().toString());
     pdp.clearStickyFaults();
   }
-  public void setRollers(Joystick box){
+  public void setRollersButtonBox(Joystick box){
     if(box.getRawButton(1))
       rollers.set(0.4);
     else if(box.getRawButton(3))
@@ -48,6 +48,11 @@ public class Intake extends SubsystemBase {
     if(box.getRawButton(5))
       move.set(true);
   }
+
+  public void setRollersPower(double power){
+    rollers.set(power);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -56,6 +61,10 @@ public class Intake extends SubsystemBase {
   }
 
   public Command intakeWithButtonBox(Joystick box){
-    return run(() -> setRollers(box));
+    return run(() -> setRollersButtonBox(box));
+  }
+
+  public Command autoReverse(){
+    return run(() -> setRollersPower(-0.3));
   }
 }

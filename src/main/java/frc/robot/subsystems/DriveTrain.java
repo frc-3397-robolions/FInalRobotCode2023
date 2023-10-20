@@ -88,4 +88,8 @@ public void zeroWheels(){
       applyDeadband(controller.getLeftY()),
       applyDeadband(controller.getRightX())));
   }
+
+  public Command autoDrive(double speed){
+    return run(() -> drive(speed, 0, 0));
+  }
 }

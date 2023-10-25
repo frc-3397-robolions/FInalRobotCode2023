@@ -78,6 +78,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+<<<<<<< HEAD
     // return new AutoIntake(intake)
     //   .withTimeout(1)
     //   .andThen(new Autonomous(swerveDrive,0.3)
@@ -88,5 +89,13 @@ public class RobotContainer {
     .andThen(swerveDrive.autoDrive(0.3)
     .withTimeout(3.5)
     .andThen(swerveDrive.autoDrive(0)));
+=======
+    // An ExampleCommand will run in autonomous
+    return new AutoIntake(intake)
+      .withTimeout(1);
+      //.andThen(new Autonomous(swerveDrive,0.3)
+      //.withTimeout(3.5))
+      //.andThen(new Autonomous(swerveDrive, 0));
+>>>>>>> parent of 8beb984 (Making it work)
   }
 }

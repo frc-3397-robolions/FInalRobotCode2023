@@ -60,6 +60,10 @@ public void drive(double y, double x, double rot){
   frontRight.drive(moduleStates[1]);
   backLeft.drive(moduleStates[2]);
   backRight.drive(moduleStates[3]);
+<<<<<<< HEAD
+=======
+  //gyro.setAngleAdjustment(180);
+>>>>>>> parent of 8beb984 (Making it work)
 }
 public void resetGyro(){
   gyro.zeroYaw();

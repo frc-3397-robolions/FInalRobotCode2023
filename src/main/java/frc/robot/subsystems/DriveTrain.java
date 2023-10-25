@@ -23,7 +23,7 @@ import frc.robot.commands.ZeroWheels;
 import static frc.robot.CustomUtils.applyDeadband;
 
 public class DriveTrain extends SubsystemBase {
-  private AHRS gyro;
+  private AHRS gyro=new AHRS(Port.kMXP);
   private SwerveModule backRight;
   private SwerveModule backLeft;
   private SwerveModule frontRight;
@@ -37,13 +37,14 @@ public class DriveTrain extends SubsystemBase {
     this.backLeft = backLeft;
     this.frontRight = frontRight;
     this.frontLeft = frontLeft;
-    gyro=new AHRS(Port.kMXP);
     var xTrans=Units.feetToMeters(1.5);
     var yTrans=Units.feetToMeters(1);
     Translation2d m_frontLeftLocation = new Translation2d(xTrans, yTrans);
     Translation2d m_frontRightLocation = new Translation2d(xTrans, -yTrans);
     Translation2d m_backLeftLocation = new Translation2d(-xTrans, yTrans);
     Translation2d m_backRightLocation = new Translation2d(-xTrans, -yTrans);
+    //@TODO reset if new gyro
+    gyro.setAngleAdjustment(0);
 
 // Creating my kinematics object using the module locations
     m_kinematics = new SwerveDriveKinematics(
@@ -59,7 +60,6 @@ public void drive(double y, double x, double rot){
   frontRight.drive(moduleStates[1]);
   backLeft.drive(moduleStates[2]);
   backRight.drive(moduleStates[3]);
-  gyro.setAngleAdjustment(180);
 }
 public void resetGyro(){
   gyro.zeroYaw();

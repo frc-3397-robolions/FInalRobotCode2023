@@ -29,50 +29,53 @@ public class DriveTrain extends SubsystemBase {
   private SwerveDriveKinematics m_kinematics;
   double L = Constants.ROBOT_LENGTH;
   double W = Constants.ROBOT_WIDTH;
+
   /** Creates a new ExampleSubsystem. */
-  public DriveTrain (SwerveModule backRight, SwerveModule backLeft, SwerveModule frontRight, SwerveModule frontLeft) {
+  public DriveTrain(SwerveModule backRight, SwerveModule backLeft, SwerveModule frontRight, SwerveModule frontLeft) {
     this.backRight = backRight;
     this.backLeft = backLeft;
     this.frontRight = frontRight;
     this.frontLeft = frontLeft;
-    gyro=new AHRS(Port.kMXP);
-    var xTrans=Units.feetToMeters(1.5);
-    var yTrans=Units.feetToMeters(1);
+    gyro = new AHRS(Port.kMXP);
+    var xTrans = Units.feetToMeters(1.5);
+    var yTrans = Units.feetToMeters(1);
     Translation2d m_frontLeftLocation = new Translation2d(xTrans, yTrans);
     Translation2d m_frontRightLocation = new Translation2d(xTrans, -yTrans);
     Translation2d m_backLeftLocation = new Translation2d(-xTrans, yTrans);
     Translation2d m_backRightLocation = new Translation2d(-xTrans, -yTrans);
 
-// Creating my kinematics object using the module locations
+    // Creating my kinematics object using the module locations
     m_kinematics = new SwerveDriveKinematics(
-      m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation
-    );
-     
-}
-public void drive(double y, double x, double rot){
-  ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(x,y,rot,Rotation2d.fromDegrees(-gyro.getAngle()));
-  //ChassisSpeeds speeds = new ChassisSpeeds(x,y,rot);
-  SwerveModuleState[] moduleStates = m_kinematics.toSwerveModuleStates(speeds);
-  frontLeft.drive(moduleStates[0]);
-  frontRight.drive(moduleStates[1]);
-  backLeft.drive(moduleStates[2]);
-  backRight.drive(moduleStates[3]);
-  gyro.setAngleAdjustment(180);
-}
-public void resetGyro(){
-  gyro.zeroYaw();
-}
-public void zeroWheels(){
-  frontLeft.zeroWheels();
-  backLeft.zeroWheels();
-  frontRight.zeroWheels();
-  backRight.zeroWheels();
-}
+        m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
+
+  }
+
+  public void drive(double y, double x, double rot) {
+    ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(x, y, rot, Rotation2d.fromDegrees(-gyro.getAngle()));
+    // ChassisSpeeds speeds = new ChassisSpeeds(x,y,rot);
+    SwerveModuleState[] moduleStates = m_kinematics.toSwerveModuleStates(speeds);
+    frontLeft.drive(moduleStates[0]);
+    frontRight.drive(moduleStates[1]);
+    backLeft.drive(moduleStates[2]);
+    backRight.drive(moduleStates[3]);
+    gyro.setAngleAdjustment(180);
+  }
+
+  public void resetGyro() {
+    gyro.zeroYaw();
+  }
+
+  public void zeroWheels() {
+    frontLeft.zeroWheels();
+    backLeft.zeroWheels();
+    frontRight.zeroWheels();
+    backRight.zeroWheels();
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
+
   }
 
   @Override

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
@@ -36,32 +37,12 @@ public class Intake extends SubsystemBase {
     pdp.clearStickyFaults();
   }
 
-  public void setRollersButtonBox(Joystick box) {
-    if (box.getRawButton(1))
-      rollers.set(0.4);
-    else if (box.getRawButton(3))
-      rollers.set(-0.3);
-    else if (box.getRawButton(2))
-      rollers.set(0.9);
-    else
-      rollers.set(0);
-
-    if (box.getRawButton(6))
-      intakeOut = false;
-    if (box.getRawButton(5))
-      intakeOut = true;
-  }
-
   public void setRollersPower(double power) {
     rollers.set(power);
   }
 
-  public void intakeIn() {
-    intakeOut = false;
-  }
-
-  public void intakeOut() {
-    intakeOut = true;
+  public void setIntake(boolean out) {
+    intakeOut = out;
   }
 
   @Override
@@ -72,11 +53,15 @@ public class Intake extends SubsystemBase {
     solenoid.set(intakeOut);
   }
 
-  public Command intakeWithButtonBox(Joystick box) {
-    return run(() -> setRollersButtonBox(box));
+  public CommandBase SetRollers(double power) {
+    return runOnce(() -> setRollersPower(power));
   }
 
-  public Command autoReverse() {
+  public CommandBase SetIntake(boolean out) {
+    return runOnce(() -> setIntake(out));
+  }
+
+  public CommandBase autoReverse() {
     return run(() -> setRollersPower(-0.3));
   }
 }

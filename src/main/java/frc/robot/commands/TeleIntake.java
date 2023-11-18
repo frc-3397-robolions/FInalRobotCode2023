@@ -14,35 +14,35 @@ public class TeleIntake extends CommandBase {
   private Intake sub;
   private XboxController xbC;
   private Joystick pad;
+
   public TeleIntake(Intake sub, XboxController xbC, Joystick pad) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.sub=sub;
-    this.xbC=xbC;
-    this.pad=pad;
+    this.sub = sub;
+    this.xbC = xbC;
+    this.pad = pad;
     addRequirements(sub);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(pad.getRawButton(1)){
-      sub.setRollers(0.4);
-    }
-    else if(pad.getRawButton(3))
-      sub.setRollers(-0.3);
-    else if(pad.getRawButton(2)){
-      sub.setRollers(0.9);
-    }
-    else
-      sub.setRollers(0);
-    if(pad.getRawButton(6)){
+    if (pad.getRawButton(1)) {
+      sub.setRollersPower(0.4);
+    } else if (pad.getRawButton(3))
+      sub.setRollersPower(-0.3);
+    else if (pad.getRawButton(2)) {
+      sub.setRollersPower(0.9);
+    } else
+      sub.setRollersPower(0);
+    if (pad.getRawButton(6)) {
       sub.intakeIn();
     }
-    if(pad.getRawButton(5)){
+    if (pad.getRawButton(5)) {
       sub.intakeOut();
     }
   }
@@ -50,7 +50,7 @@ public class TeleIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    sub.setRollers(0);
+    sub.setRollersPower(0);
   }
 
   // Returns true when the command should end.

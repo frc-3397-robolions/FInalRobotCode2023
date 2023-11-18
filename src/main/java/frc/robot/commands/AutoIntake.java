@@ -10,27 +10,29 @@ import frc.robot.subsystems.Intake;
 public class AutoIntake extends CommandBase {
   /** Creates a new AutoIntake. */
   Intake sub;
+
   public AutoIntake(Intake sub) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.sub=sub;
+    this.sub = sub;
     addRequirements(sub);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    sub.setRollers(-0.3);
+    sub.setRollersPower(-0.3);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
 
-    sub.setRollers(0);
+    sub.setRollersPower(0);
   }
 
   // Returns true when the command should end.
